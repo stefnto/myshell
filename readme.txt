@@ -1,6 +1,27 @@
-Στέφανος Δουκάκης-Χιώτης, ΑΜ: 1115201800276
+The compilation is done with the make command, and the program is executed by typing ./mysh .
 
-Το compilation γίνεται με την εντολή make και η εκτέλεση του προγράμματος γράφοντας ./mysh όπως ακριβώς ζητείται στην εκφώνηση.
+The following .h files are included:
+
+functions.h: Contains the main functions that implement the interface and features of the shell.
+helperfunc.h: Contains helper functions for creating and printing character arrays used in the implementation.
+signalhandler.h: Contains functions for handling signals.
+builtIn.h: Contains implementations for the shell's built-in functionalities.
+The delimiter for separating words from user input is a space, so redirection, piping, background execution, and the Greek question mark characters must be separated by a space from commands or files in the command. For example, ls -l > ls.txt instead of ls -l>ls.txt, cat < ls.txt | sort instead of cat < ls.txt|sort, and ls -l ; sort ls.txt.
+
+Only the background execution character can be used without a space when followed by the Greek question mark, i.e., count1 &; count2 is acceptable instead of count1&;count2. When the background process finishes, the user presses Enter, as in bash, and the mysh shell returns a message indicating the process's completion.
+
+For the myHistory command, the shell keeps a session history of commands entered in two ways: by using the readline/history.h library (allowing users to navigate previous commands with the up-down arrows) and via the built-in myHistory command. Using myHistory prints the last X (HISTORY_NUMS set in builtIn.h) commands, with the numbering increasing to show the most recent command. The numbering resets, replacing old commands one by one; for instance, the 21st command will go to position 1, replacing the old 1st command, and so on (assuming X = 20). myHistory is not stored in its list but is stored in the list accessible with the keyboard arrows. Using myHistory 4 (without quotes) executes the 4th stored command, displaying it before execution. The history list does not store built-in commands like myHistory, create/destroyalias, myAliases, cd, exit.
+
+For implementing pipelines, multiple command pipelines are supported, with the option to read from a file in the first command of the pipeline and to write to a file in the last command.
+
+In commands like grep "stef", the word stef should not be enclosed in quotes.
+
+Programs can be executed with either the relative or absolute path of the executable.
+
+Regarding aliases, the shell keeps aliases created in the current session, with a maximum of X (ALIASES_NUM defined in builtIn.h). The commands for creating and destroying aliases are createalias and destroyalias, respectively. The myAliases command also displays the aliases created by the user (similar to myHistory). To create an alias for a command without arguments (e.g., cat, myout, a.out), the user enters createalias myal ls. If the alias should include command arguments, the command and arguments must be enclosed in quotes, e.g., createalias myal "ls -las" or createalias myal "ls -l -s". If an alias to be destroyed does not exist, an appropriate message is displayed. If a command that is neither a program nor an alias is used, the shell displays a relevant message. Aliases cannot be created for built-in commands.
+==============================================================================================================================================================================================================================
+
+Το compilation γίνεται με την εντολή make και η εκτέλεση του προγράμματος γράφοντας ./mysh .
 
 Υπάρχουν τα εξής .h αρχεία:
 functions.h: που περιέχει τις κεντρικές συναρτήσεις που υλοποιούν τη διεπαφή και τα χαρακτηριστικά του κελύφους.
